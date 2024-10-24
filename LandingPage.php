@@ -35,7 +35,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: url('pic.jpeg'); /* Replace with your image URL */
+      background-image: url('images/pic.jpeg');
       background-size: cover;
       background-position: center;
     }
