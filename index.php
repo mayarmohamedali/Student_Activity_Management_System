@@ -25,7 +25,6 @@
         <link href="css/templatemo-topic-listing.css" rel="stylesheet">      
 
     </head>
-    <!-- heloo -->
     <body id="top">
     <?php include"navbar.php";?>
     
