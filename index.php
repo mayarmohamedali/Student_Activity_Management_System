@@ -1,3 +1,5 @@
+
+
 <!doctype html>
 <html lang="en">
     <head>
@@ -25,53 +27,9 @@
     </head>
     
     <body id="top">
-
+    <?php include"navbar.php";?>
+    
         <main>
-
-            <nav class="navbar navbar-expand-lg">
-                <div class="container">
-                    <a class="navbar-brand" href="index.html">
-                        <i class="bi-back"></i>
-                        <span>UniConnect</span>
-                    </a>
-
-                    <div class="d-lg-none ms-auto me-4">
-                        <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
-                    </div>
-    
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-    
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav ms-lg-5 me-lg-auto">
-                            <li class="nav-item">
-                                <a class="nav-link click-scroll" href="#section_1">Home</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link click-scroll" href="#section_2">Most Popular</a>
-                            </li>
-    
-                            <li class="nav-item">
-                                <a class="nav-link click-scroll" href="#section_3">How it works</a>
-                            </li>
-    
-                            <li class="nav-item">
-                                <a class="nav-link click-scroll" href="#section_5">Contact</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link click-scroll" href="#section_6">About</a>
-                            </li>
-                        </ul>
-
-                        <div class="d-none d-lg-block">
-                            <a href="#login$signup_page" class="navbar-icon bi-person smoothscroll"></a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-            
 
             <section class="hero-section d-flex justify-content-center align-items-center" id="section_1">
                 <div class="container">
@@ -376,62 +334,8 @@
                 </div>
             </section>
         </main>
-
-        <section class="contact-section section-padding section-bg" id="section_6">
-<footer class="site-footer section-padding">
-            <div class="container">
-                <div class="row">
-
-                    <div class="col-lg-3 col-12 mb-4 pb-2">
-                        <a class="navbar-brand mb-2" href="index.html">
-                            <i class="bi-back"></i>
-                            <span> UniConnect </span>
-                            
-                        </a>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4 col-6">
-                        <h6 class="site-footer-title mb-3">About Campus Connect </h6>
-
-                 <p>
-                 streamlines event management for students, clubs, and organizations with easy event creation, quick registration, attendance tracking, and analytics—keeping campus life connected and organized.</p>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4 col-6 mb-4 mb-lg-0">
-                        <h6 class="site-footer-title mb-3">Information</h6>
-
-                        <p class="text-white d-flex mb-1">
-                            <a href="tel: 305-240-9671" class="site-footer-link">
-                                (+202) 24772038
-                            </a>
-                        </p>
-
-                        <p class="text-white d-flex">
-                            <a href="mailto:info@company.com" class="site-footer-link">
-                                miu@miuegypt.edu.eg
-                            </a>
-                        </p>
-                    </div>
-
-                    <div class="col-lg-3 col-md-4 col-12 mt-4 mt-lg-0 ms-auto">
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            English</button>
-
-                            <ul class="dropdown-menu">
-                                <li><button class="dropdown-item" type="button">Arabic</button></li>
-                            </ul>
-                        </div>
-
-               
-            </section>
-                    </div>
-
-                </div>
-            </div>
-        </footer>
-
-
+        <?php include"footer.php";?>
+      
         <!-- JAVASCRIPT FILES -->
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.bundle.min.js"></script>
