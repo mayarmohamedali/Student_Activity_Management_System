@@ -36,8 +36,8 @@ https://templatemo.com/tm-590-topic-listing
     <body class="topics-listing-page" id="top">
 
         <main>
-
-            <nav class="navbar navbar-expand-lg">
+        <?php include"navbar.php";?>
+            <!-- <nav class="navbar navbar-expand-lg">
                 <div class="container">
                     <a class="navbar-brand" href="index.html">
                         <i class="bi-back"></i>
@@ -90,7 +90,7 @@ https://templatemo.com/tm-590-topic-listing
                         
                     </div>
                 </div>
-            </nav>
+            </nav> -->
 
 
             <header class="site-header d-flex flex-column justify-content-center align-items-center">
@@ -130,17 +130,18 @@ https://templatemo.com/tm-590-topic-listing
                         <input type="password" name="confirm_password" id="confirmPassword" placeholder="Confirm Password" required>
                         <span class="error" id="confirmPasswordError"></span>
             
-                        <button type="submit">Sign Up</button>
+                        <button id="signupbuttuon " type="submit">Sign Up</button>
                     </form>
                     <div class="toggle-link">
-                        <p>Already have an account? <a href="login.html">Login</a></p>
+                        <p>Already have an account? <a href="login.php">Login</a></p>
                     </div>
                     
                 </div>
             </section>
             
         </main>
-
+        <?php include"footer.php";?>
+        <!-- 
         <footer class="site-footer section-padding">
             <div class="container">
                 <div class="row">
@@ -211,7 +212,7 @@ https://templatemo.com/tm-590-topic-listing
 
                 </div>
             </div>
-        </footer>
+        </footer> -->
 
         <!-- JAVASCRIPT FILES -->
         <script src="js/jquery.min.js"></script>
@@ -220,4 +221,31 @@ https://templatemo.com/tm-590-topic-listing
         <script src="js/custom.js"></script>
         <script src="js/signup.js"></script>
     </body>
+
+<!-- databaseconnection -->
+<!-- databaseconnection -->
+<?php
+ $servername="localhost";
+ $username="root";
+ $password="";
+ $DB="studentactivitymanagment";
+
+ $conn= mysqli_connect($servername, $username, $password, $DB);
+
+ if(!$conn){
+    die("connection failed: " . mysqli_connect_error());
+ }
+ echo "connected successfully";
+
+ $sql = "insert into users (firstname, lastname, email)
+        values('John', 'Doe', 'john@example.com')";
+
+if($conn->query($sql)== TRUE){
+    echo "New record created successfully";
+}
+else{
+    echo "Error: " .$sql . "<br>" . $conn->error;
+}
+$conn->close();
+?>
 </html>

@@ -35,8 +35,8 @@ https://templatemo.com/tm-590-topic-listing
     <body class="topics-listing-page" id="top">
 
         <main>
-
-            <nav class="navbar navbar-expand-lg">
+        <?php include"navbar.php";?>
+            <!-- <nav class="navbar navbar-expand-lg">
                 <div class="container">
                     <a class="navbar-brand" href="index.html">
                         <i class="bi-back"></i>
@@ -89,7 +89,7 @@ https://templatemo.com/tm-590-topic-listing
                         </div>
                     </div>
                 </div>
-            </nav>
+            </nav> -->
 
 
             <header class="site-header d-flex flex-column justify-content-center align-items-center">
@@ -126,7 +126,7 @@ https://templatemo.com/tm-590-topic-listing
                         <button type="submit">Login</button>
                     </form>
                     <div class="toggle-link">
-                        <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+                        <p>Don't have an account? <a href="signup.php">Sign Up</a></p>
                     </div>
                     
                 </div>
@@ -135,7 +135,7 @@ https://templatemo.com/tm-590-topic-listing
             
         </main>
 
-        <footer class="site-footer section-padding">
+        <!-- <footer class="site-footer section-padding">
             <div class="container">
                 <div class="row">
 
@@ -205,8 +205,8 @@ https://templatemo.com/tm-590-topic-listing
 
                 </div>
             </div>
-        </footer>
-
+        </footer> -->
+        <?php include"footer.php";?>
         <!-- JAVASCRIPT FILES -->
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.bundle.min.js"></script>
