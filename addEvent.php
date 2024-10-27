@@ -123,6 +123,11 @@ https://templatemo.com/tm-590-topic-listing
                         <label for="eventName" class="form-label">Event Name</label>
                         <input type="text" class="form-control" id="eventName" name="event_name" required>
                     </div>
+                    <div class="mb-3">
+                        <label for="eventDiscription" class="form-label">Event Discription</label>
+                        <input type="text" class="form-control" id="eventDiscription" name="event-Discription" required>
+                    </div>
+
 
                     <div class="mb-3">
                         <label for="eventPhoto" class="form-label">Event Photo</label>
@@ -143,6 +148,7 @@ https://templatemo.com/tm-590-topic-listing
                         <label for="eventLocation" class="form-label">Event Location</label>
                         <input type="text" class="form-control" id="eventLocation" name="event_location" required>
                     </div>
+
 
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>

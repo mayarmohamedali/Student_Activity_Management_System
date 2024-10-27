@@ -30,7 +30,7 @@
 
             <nav class="navbar navbar-expand-lg">
                 <div class="container">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="index.php">
                         <i class="bi-back"></i>
                         <span>UniConnect</span>
                     </a>
@@ -46,19 +46,19 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ms-lg-5 me-lg-auto">
                             <li class="nav-item">
-                                <a class="nav-link click-scroll" href="#section_1">Home</a>
+                                <a class="nav-link click-scroll" href="index.php #section_1">Home</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link click-scroll" href="#section_2">Most Popular</a>
+                                <a class="nav-link click-scroll" href="index.php#section_2">Most Popular</a>
                             </li>
     
                             <li class="nav-item">
-                                <a class="nav-link click-scroll" href="#section_3">How it works</a>
+                                <a class="nav-link click-scroll" href="index.php#section_3">How it works</a>
                             </li>
     
                             <li class="nav-item">
-                                <a class="nav-link click-scroll" href="#section_5">Contact</a>
+                                <a class="nav-link click-scroll" href="#index.phpsection_5">Contact</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link click-scroll" href="#section_6">About</a>
