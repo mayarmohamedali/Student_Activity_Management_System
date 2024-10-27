@@ -105,7 +105,7 @@ https://templatemo.com/tm-590-topic-listing
                                 </ol>
                             </nav>
 
-                            <h2 class="text-white">MUN club</h2>
+                            <h2 class="text-white"> MIU CLUBS</h2>
                         </div>
 
                     </div>
