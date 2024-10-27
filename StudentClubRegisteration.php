@@ -27,7 +27,7 @@
 </head>
 
 <body id="top">
-<?php include"navbar.php";?>
+<?php include"navbarForStudents.php";?>
 <main>
 
 
@@ -37,7 +37,7 @@
                 <div class="col-lg-5 col-12 mb-5">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.php">Homepage</a></li>
+                            <li class="breadcrumb-item"><a href="indexForStudents.php">Homepage</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Clubs</li>
                         </ol>
                     </nav>

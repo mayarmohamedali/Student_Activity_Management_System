@@ -31,7 +31,7 @@
                 <div class="row">
 
                     <div class="col-lg-3 col-12 mb-4 pb-2">
-                        <a class="navbar-brand mb-2" href="index.html">
+                        <a class="navbar-brand mb-2" href="indexForStudents.php">
                             <i class="bi-back"></i>
                             <span> UniConnect </span>
                             
