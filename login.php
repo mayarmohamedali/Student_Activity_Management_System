@@ -9,31 +9,50 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Open+Sans&display=swap" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/bootstrap-icons.css" rel="stylesheet">
-    <link href="css/templatemo-topic-listing.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap-icons.css" rel="stylesheet">
+    <link href="/css/templatemo-topic-listing.css" rel="stylesheet">
     <link href="css/signup.css" rel="stylesheet">
 </head>
 <body class="topics-listing-page" id="top">
 <?php 
-include 'databaseConn.php'; 
+include 'databaseConnection.php'; 
+if (isset($_POST['submit'])) {
+   echo $email = mysqli_real_escape_string($conn, $_POST['email']);
+   echo $password = $_POST['password'];
 
-// Check if form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Hash password
+    // SQL query to retrieve user based on email
+    $sql = "SELECT email, password, role FROM signup WHERE email = '$email'";
+    $result = mysqli_query($conn, $sql);
 
-    // Insert data into the login table with only email and password
-    $sql = "INSERT INTO log_in (email, password) VALUES ('$email', '$password')";
+    // Check if user exists
+    if (mysqli_num_rows($result) === 1) {
+        // Fetch user data
+        $row = mysqli_fetch_assoc($result);
+        
+        // Verify the password
+        if (password_verify($password, $row['password'])) {
+            // Password is correct, set session variables
+            $_SESSION['email'] = $row['email'];
+            $_SESSION['role'] = $row['role'];
 
-    if ($conn->query($sql) === TRUE) {
-        echo "New record created successfully";
+            // Redirect based on role
+            if ($row['role'] === "student") {
+                header("Location: indexForStudents.php");
+                exit;
+            } elseif ($row['role'] === "club & organization") {
+                header("Location: indexForClubsAndOrganizations.php");
+                exit;
+            }
+        } else {
+            echo "<p style='color:red;'>Incorrect password.</p>";
+        }
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "<p style='color:red;'>Email does not exist in the system.</p>";
     }
 }
-
 ?>
+
 <main>
 <?php include "navbarForStudents.php"; ?>
 <header class="site-header d-flex flex-column justify-content-center align-items-center">
@@ -55,14 +74,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <section class="section-padding section-bg" id="signUpSection">
                 <div class="sign-up-container">
                     <h2>Login</h2>
-                    <form id="loginForm">
+                    <form id="loginForm" method="post">
                         <input type="email" name="email" id="loginEmail" placeholder="Email" required>
                         <span class="error" id="loginEmailError"></span>
         
                         <input type="password" name="password" id="loginPassword" placeholder="Password" required>
                         <span class="error" id="loginPasswordError"></span>
         
-                        <button type="submit">Login</button>
+                    <input name="submit" type="Submit" value="login"> 
                     </form>
                     <div class="toggle-link">
                         <p>Don't have an account? <a href="signup.php">Sign Up</a></p>
