@@ -77,7 +77,7 @@
                             <h4>Utopia</h4>
                             <p>Join Utopia for engaging activities and community events.</p>
 
-                            <form class="custom-form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+                            <form class="custom-form" action="rating.php" method="post">
                                 <div class="form-group">
                                     <label for="name1">Full Name</label>
                                     <input type="text" class="form-control" id="name1" name="name" placeholder="Enter your name" required>
@@ -98,7 +98,7 @@
                             <h4> Admissions</h4>
                             <p>Join Admissions and be a part of various academic activities.</p>
 
-                            <form class="custom-form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+                            <form class="custom-form" action="rating.php" method="post">
                                 <div class="form-group">
                                     <label for="name2">Full Name</label>
                                     <input type="text" class="form-control" id="name2" name="name" placeholder="Enter your name" required>
