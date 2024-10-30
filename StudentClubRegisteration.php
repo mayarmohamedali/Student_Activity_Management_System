@@ -77,7 +77,7 @@
                                         <h4> ACPC</h4>
                                         <p>Welcome to ACPC! Join us for exciting activities and events.</p>
 
-                                        <form class="custom-form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                                        <form class="custom-form" action="rating.php" method="post">
                                             <div class="form-group">
                                                 <label for="name1">Full Name</label>
                                                 <input type="text" class="form-control" id="name1" name="name1" placeholder="Enter your name" required>
@@ -118,7 +118,7 @@
                                         <h4>MUN</h4>
                                         <p>Be part of MUN and enjoy various events and activities.</p>
 
-                                        <form class="custom-form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                                        <form class="custom-form" action="rating.php" method="post">
                                             <div class="form-group">
                                                 <label for="name2">Full Name</label>
                                                 <input type="text" class="form-control" id="name2" name="name2" placeholder="Enter your name" required>
