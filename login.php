@@ -6,12 +6,14 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Login Page</title>
+
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Open+Sans&display=swap" rel="stylesheet">
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/bootstrap-icons.css" rel="stylesheet">
-    <link href="/css/templatemo-topic-listing.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/templatemo-topic-listing.css" rel="stylesheet">
     <link href="css/signup.css" rel="stylesheet">
 </head>
 <body class="topics-listing-page" id="top">
@@ -81,7 +83,7 @@ if (isset($_POST['submit'])) {
                         <input type="password" name="password" id="loginPassword" placeholder="Password" required>
                         <span class="error" id="loginPasswordError"></span>
         
-                    <input name="submit" type="Submit" value="login"> 
+                    <input name="submit" type="submit" value="login"> 
                     </form>
                     <div class="toggle-link">
                         <p>Don't have an account? <a href="signup.php">Sign Up</a></p>

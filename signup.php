@@ -21,24 +21,49 @@
 <?php
 include_once 'databaseConnection.php'; 
 // Check if form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-     $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    $role = $_POST['role'];
+if (isset($_POST['submit'])) {
+    // Get and sanitize user input
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $password = $_POST['password'];
+    $confirm_password = $_POST['confirm_password'];
+    $role = mysqli_real_escape_string($conn, $_POST['role']);
 
-    $sql = "INSERT INTO signup (username, email, password, role) VALUES ('$username', '$email', '$password', '$role')";
-
-    if ($conn->query($sql) === TRUE) {
-        // Redirect based on role after successful signup
-        if ($role === "student") {
-            echo "<script>window.location.href = 'indexForStudents.php';</script>";
-        } elseif ($role === "club & organization") {
-            echo "<script>window.location.href = 'indexForClubsAndOrganizations.php';</script>";
-        }
+    // Check if passwords match
+    if ($password !== $confirm_password) {
+        echo "<p style='color:red;'>Passwords do not match.</p>";
         exit;
+    }
+
+    // Hash the password
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+    // Check if email already exists
+    $checkEmailSql = "SELECT * FROM signup WHERE email = '$email'";
+    $result = mysqli_query($conn, $checkEmailSql);
+
+    if (mysqli_num_rows($result) > 0) {
+        // Email exists
+        echo "<p style='color:red;'>Email already exists. Please use a different email.</p>";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        // Insert new user into the database
+        $insertSql = "INSERT INTO signup (username, email, password, role) VALUES ('$username', '$email', '$hashed_password', '$role')";
+        if (mysqli_query($conn, $insertSql)) {
+            // Set session variables
+            $_SESSION['email'] = $email;
+            $_SESSION['role'] = $role;
+
+            // Redirect based on role
+            if ($role === "student") {
+                header("Location: indexForStudents.php");
+                exit;
+            } elseif ($role === "club & organization") {
+                header("Location: indexForClubsAndOrganizations.php");
+                exit;
+            }
+        } else {
+            echo "<p style='color:red;'>Error in creating account. Please try again later.</p>";
+        }
     }
 }
 ?>
@@ -64,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <section class="section-padding section-bg" id="signUpSection">
         <div class="sign-up-container">
             <h2>Sign Up</h2>
-            <form id="signUpForm" method="POST">
+            <form id="signUpForm" method="post">
                 <input type="text" name="username" id="signUpUsername" placeholder="Username" required>
                 <span class="error" id="usernameError"></span>
 
@@ -78,15 +103,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <span class="error" id="confirmPasswordError"></span>
 
                 <!-- Dropdown for role selection -->
-                <label for="role">I am a: </label>
                 <select name="role" id="role" required>
                     <option value="" disabled selected>Select your role</option>
                     <option value="student">Student</option>
                     <option value="club & organization">Club & Organization</option>
+                    <option value="admin">Admin</option>
                 </select>
                 <span class="error" id="roleError"></span>
 
-                <button id="signupbutton" type="submit">Sign Up</button>
+                <input id="signupbutton" type="submit" name = "submit" value = "Signup">
             </form>
             <div class="toggle-link">
                 <p>Already have an account? <a href="login.php">Login</a></p>

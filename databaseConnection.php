@@ -29,7 +29,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<script>window.location.href = 'indexForStudents.php';</script>";
         } elseif ($role === "club & organization") {
             echo "<script>window.location.href = 'indexForClubsAndOrganizations.php';</script>";
-        exit;
+        } elseif ($role === "admin") {
+            echo "<script>window.location.href = 'indexForAdmin.php';</script>";
+            exit;
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
