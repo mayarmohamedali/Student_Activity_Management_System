@@ -1,0 +1,185 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f9ff;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s ease;
+}
+
+.container {
+    width: 100%;
+    max-width: 500px;
+    margin: 50px auto;
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.profile-picture {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 3px solid #007bff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease;
+}
+
+.upload-btn {
+    display: inline-block;
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #007bff;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+.upload-btn:hover {
+    color: #0056b3;
+}
+
+.info-block {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.info-block input {
+    width: calc(100% - 50px);
+    padding: 10px;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-top: 5px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.info-block input:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+.info-block button {
+    width: 35px;
+    height: 35px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    border-radius: 50%;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.info-block button:hover {
+    background-color: #0056b3;
+    transform: scale(1.1);
+}
+
+.event-history {
+    margin-bottom: 20px;
+}
+
+.event-history h3 {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+.event-history .event {
+    background-color: #1261a7;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.event-history .event:hover {
+    background-color: #e0f7fa;
+}
+
+.dark-mode-toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.dark-mode-toggle input[type="checkbox"] {
+    margin-right: 10px;
+    width: 50px;
+    height: 25px;
+    appearance: none;
+    background: #ddd;
+    border-radius: 50px;
+    position: relative;
+    outline: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dark-mode-toggle input[type="checkbox"]:checked {
+    background-color: #007bff;
+}
+
+.dark-mode-toggle input[type="checkbox"]:before {
+    content: '';
+    width: 25px;
+    height: 25px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: 0.3s;
+}
+
+.dark-mode-toggle input[type="checkbox"]:checked:before {
+    left: 25px;
+}
+
+.dark-mode-toggle label {
+    font-size: 16px;
+}
+
+.dark-mode {
+    background-color: #2c2c2c;
+    color: #ddd;
+}
+
+.dark-mode .container {
+    background-color: #3b3b3b;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .info-block input {
+    background-color: #555;
+    color: white;
+    border-color: #777;
+}
+
+.dark-mode .info-block input:focus {
+    border-color: #aaa;
+}
+
+.dark-mode .event {
+    background-color: #555;
+}
+
+.dark-mode .event:hover {
+    background-color: #666;
+}
+
+.dark-mode .profile-picture {
+    border-color: #0056b3;
+}
+
+.dark-mode-toggle input[type="checkbox"]:checked + label {
+    color: white;
+}
