@@ -1,32 +1,5 @@
-<<<<<<< HEAD
 <?php
 session_start();  // Start the session to store user data
-=======
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Login Page</title>
-
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Open+Sans&display=swap" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/bootstrap-icons.css" rel="stylesheet">
-    <link href="css/templatemo-topic-listing.css" rel="stylesheet">
-    <link href="css/signup.css" rel="stylesheet">
-</head>
-<body class="topics-listing-page" id="top">
-<?php 
-include 'databaseConnection.php'; 
-if (isset($_POST['submit'])) {
-   echo $email = mysqli_real_escape_string($conn, $_POST['email']);
-   echo $password = $_POST['password'];
->>>>>>> 9359b4f31ee33f1497dbf4a7bf6545b1ff850fa4
 
 include 'databaseConnection.php';
 
@@ -158,37 +131,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </form>
     </div>
 
-<<<<<<< HEAD
-=======
-<section class="section-padding section-bg" id="signUpSection">
-                <div class="sign-up-container">
-                    <h2>Login</h2>
-                    <form id="loginForm" method="post">
-                        <input type="email" name="email" id="loginEmail" placeholder="Email" required>
-                        <span class="error" id="loginEmailError"></span>
-        
-                        <input type="password" name="password" id="loginPassword" placeholder="Password" required>
-                        <span class="error" id="loginPasswordError"></span>
-        
-                    <input name="submit" type="submit" value="login"> 
-                    </form>
-                    <div class="toggle-link">
-                        <p>Don't have an account? <a href="signup.php">Sign Up</a></p>
-                    </div>
-                    
-                </div>
-                </div>
-            </section>
-
-</main>
-
-<?php include "footer.php"; ?>
-<!-- JAVASCRIPT FILES -->
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.bundle.min.js"></script>
-<script src="js/jquery.sticky.js"></script>
-<script src="js/custom.js"></script>
-<script src="js/signup.js"></script>
->>>>>>> 9359b4f31ee33f1497dbf4a7bf6545b1ff850fa4
 </body>
 </html>
