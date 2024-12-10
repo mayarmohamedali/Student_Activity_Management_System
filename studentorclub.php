@@ -70,18 +70,18 @@
 
             <div class="col-lg-4 col-12 mb-4">
     <div class="custom-block bg-white shadow-lg">
-        <h5 class="mb-2">Add users</h5>
-        <p class="mb-0">add students , clubs & organizations</p>
-        <a href="studentorclub.php" class="btn custom-btn mt-2">Add users</a>
+        <h5 class="mb-2">Add </h5>
+        <p class="mb-0">students</p>
+        <a href="Addstudent.php" class="btn custom-btn mt-2">Add student</a>
 
  <!-- Updated link -->
     </div>
 </div>
                 <div class="col-lg-4 col-12 mb-4">
                     <div class="custom-block bg-white shadow-lg">
-                        <h5 class="mb-2">Activity</h5>
-                        <p class="mb-0">View recent activities and updates.</p>
-                        <a href="viewactivity.php" class="btn custom-btn mt-2">View Activity</a>
+                        <h5 class="mb-2">Add</h5>
+                        <p class="mb-0">Clubs and Organizations</p>
+                        <a href="addclub.php" class="btn custom-btn mt-2">Add Club and Organization</a>
                     </div>
               
               
@@ -89,26 +89,7 @@
               
                 </div>
 
-                <div class="col-lg-4 col-12 mb-4">
-    <div class="custom-block bg-white shadow-lg">
-        <h5 class="mb-2">Reports</h5>
-        <p class="mb-0">Generate and view reports.</p>
-        <a href="viewreport.php" class="btn custom-btn mt-2">View Reports</a>
-
- <!-- Updated link -->
-    </div>
-</div>
-
-
-                <div class="col-lg-4 col-12 mb-4">
-                    <div class="custom-block bg-white shadow-lg">
-                        <h5 class="mb-2">Dashboard</h5>
-                        <p class="mb-0">Overview of key metrics and insights.</p>
-                        <a href="dashboard-detail.php" class="btn custom-btn mt-2">Go to Dashboard</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+             
     </section>
 </main>
 
