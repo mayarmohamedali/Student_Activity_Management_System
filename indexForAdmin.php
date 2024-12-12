@@ -9,9 +9,10 @@
 
     <title>UniConnect</title>
 
-    <!-- CSS FILES -->        
-    <!-- CSS FILES -->        
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+        
+        <!-- CSS FILES -->        
+       <!-- CSS FILES -->        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -21,53 +22,21 @@
 
         <link href="css/bootstrap-icons.css" rel="stylesheet">
 
-        <link href="css/templatemo-topic-listing.css" rel="stylesheet">     
-    
+        <link href="css/templatemo-topic-listing.css" rel="stylesheet">       
 </head>
 
 <body id="top">
+
+
+<?php include"navbarForAdmin.php";?>
 <main>
-
-
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-        <a class="navbar-brand" href="indexForStudents.php">
-    <i class="bi-back"></i>
-    <span>UniConnect</span>
-</a>
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-lg-5 me-lg-auto">
-                <li class="nav-item">
-                        <a class="nav-link" href="#dashboard">Add Users</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#activity">Activity</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#reports">Reports</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#dashboard">Dashboard</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-
-   
-
     <section class="hero-section d-flex justify-content-center align-items-center" id="activity">
         <div class="container">
             <div class="row">
 
-
-
-
+        
+          
+            
             <div class="col-lg-4 col-12 mb-4">
     <div class="custom-block bg-white shadow-lg">
         <h5 class="mb-2">Add users</h5>
