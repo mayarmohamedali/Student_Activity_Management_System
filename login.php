@@ -1,117 +1,105 @@
 <?php
-session_start();  // Start the session to store user data
+session_start(); // Start the session
 
 include 'databaseConnection.php';
 
-$message = ""; // To store login error or success messages
+class UserAuthentication {
+    private $conn;
 
+    public function __construct($dbConnection) {
+        $this->conn = $dbConnection;
+    }
+
+    public function authenticate($email, $password) {
+        $user = $this->getUserByEmail($email);
+
+        if ($user && $this->verifyPassword($password, $user['Password'])) {
+            $this->initializeSession($user);
+            $this->redirectUser($user['UserTypeId']);
+        } else {
+            return "Invalid email or password.";
+        }
+    }
+
+    private function getUserByEmail($email) {
+        $query = "SELECT * FROM Users WHERE Email = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc();
+        }
+        return null;
+    }
+
+    private function verifyPassword($inputPassword, $storedPassword) {
+        return password_verify($inputPassword, $storedPassword);
+    }
+
+    private function initializeSession($user) {
+        $_SESSION['user_id'] = $user['UserId'];
+        $_SESSION['username'] = $user['Username'];
+        $_SESSION['userTypeId'] = $user['UserTypeId'];
+    }
+
+    private function redirectUser($userTypeId) {
+        switch ($userTypeId) {
+            case 1:
+                $this->redirect("indexForStudents.php");
+                break;
+            case 2:
+                $this->redirect("indexForClubsAndOrganizations.php");
+                break;
+            case 3:
+                $this->redirect("indexForAdmin.php");
+                break;
+            default:
+                exit("Invalid user type.");
+        }
+    }
+
+    private function redirect($url) {
+        echo "<script>window.location.href = '$url';</script>";
+        exit();
+    }
+}
+
+// Main execution
+$message = ""; // To store login error or success messages
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = $_POST["email"];
     $password = $_POST["password"];
 
-    // Query to check if user exists
-    $query = "SELECT * FROM Users WHERE Email = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        // User exists, fetch the user data
-        $user = $result->fetch_assoc();
-        if (password_verify($password, $user['Password'])) {
-            // Password matches, start session and store user info
-            $_SESSION['user_id'] = $user['UserId'];
-            $_SESSION['username'] = $user['Username'];
-            $_SESSION['userTypeId'] = $user['UserTypeId'];
-
-            // Check the UserTypeId to redirect to the appropriate page
-            if ($user['UserTypeId'] == 1) {
-                // Redirect to the student page
-                echo "<script>
-                        // alert('Login successful! Redirecting to student page...');
-                        window.location.href = 'indexForStudents.php';  // Redirect to the student page
-                      </script>";
-            } elseif ($user['UserTypeId'] == 2) {
-                // Redirect to the club organizer page
-                echo "<script>
-                        // alert('Login successful! Redirecting to club organizer page...');
-                        window.location.href = 'indexForClubsAndOrganizations.php';  // Redirect to the club organizer page
-                      </script>";
-            }
-        } else {
-            // Password does not match
-            $message = "Invalid email or password.";
-        }
-    } else {
-        // User does not exist
-        $message = "Invalid email or password.";
-    }
-
-    $stmt->close();
-    $conn->close();
+    $auth = new UserAuthentication($conn);
+    $message = $auth->authenticate($email, $password);
 }
+
+$conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Open+Sans&display=swap" rel="stylesheet">
+                        
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/login.css" rel="stylesheet">
+
+        <link href="css/bootstrap-icons.css" rel="stylesheet">
+
+        <link href="css/templatemo-topic-listing.css" rel="stylesheet">  
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f4f4f4;
-        }
-
-        .login-form {
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-            width: 100%;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        .error-message {
-            color: red;
-            font-size: 14px;
-            text-align: center;
-        }
-    </style>
+   
 </head>
 <body>
 

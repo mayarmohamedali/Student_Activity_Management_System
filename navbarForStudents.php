@@ -11,6 +11,8 @@
 
         <!-- CSS FILES -->        
         <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -66,8 +68,18 @@
                         </ul>
 
                         <div class="d-none d-lg-block">
-                            <a href="signup.php" class="navbar-icon bi-person smoothscroll"></a>
-                        </div>
+    <!-- Signup Icon -->
+    <a href="signup.php" class="navbar-icon bi-person smoothscroll"></a>
+
+    <!-- Logout Icon -->
+    <a href="logout.php" class="navbar-icon">
+        <i class="fa-solid fa-right-from-bracket"></i>
+    </a>
+</div>
+                        
+                   
+                        
+                        
                     </div>
                 </div>
             </nav>

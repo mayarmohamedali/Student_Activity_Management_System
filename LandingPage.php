@@ -16,7 +16,7 @@
   <div class="content">
     <h1>Welcome to UniConnect</h1>
     <p>Streamline your campus life with ease.</p>
-    <a href="indexForStudents.php">Get Started</a>
+    <a href="login.php">Get Started</a>
   </div>
 
   <style>
