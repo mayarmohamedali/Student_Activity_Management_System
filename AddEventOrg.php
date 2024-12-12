@@ -63,7 +63,7 @@ https://templatemo.com/tm-590-topic-listing
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
                 <h2 class="mb-4 text-center">Add Event For organization</h2>
-                <form action="add_event.php" method="POST" enctype="multipart/form-data">
+                <form action="create_event.php" method="POST" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="eventName" class="form-label">Event Name</label>
                         <input type="text" class="form-control" id="eventName" name="event_name" required>
