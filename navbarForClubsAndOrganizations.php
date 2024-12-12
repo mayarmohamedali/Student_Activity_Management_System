@@ -10,7 +10,10 @@
         <title>UniConnect</title>
 
         <!-- CSS FILES -->        
+        <!-- CSS FILES -->        
         <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -20,7 +23,7 @@
 
         <link href="css/bootstrap-icons.css" rel="stylesheet">
 
-        <link href="css/templatemo-topic-listing.css" rel="stylesheet">      
+        <link href="css/templatemo-topic-listing.css" rel="stylesheet">        
 
     </head>
     
@@ -28,13 +31,13 @@
 
         <main>
 
-            <nav class="navbar navbar-expand-lg">
+        <nav class="navbar navbar-expand-lg">
                 <div class="container">
                     <a class="navbar-brand" href="indexForClubsAndOrganizations.php">
                         <i class="bi-back"></i>
                         <span>UniConnect</span>
                     </a>
-
+                    
                     <div class="d-lg-none ms-auto me-4">
                         <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
                     </div>
@@ -68,6 +71,10 @@
                         <div class="d-none d-lg-block">
                             <a href="signup.php" class="navbar-icon bi-person smoothscroll"></a>
                         </div>
+                        <!-- Logout Icon -->
+    <a href="logout.php" class="navbar-icon">
+        <i class="fa-solid fa-right-from-bracket"></i>
+    </a>
                     </div>
                 </div>
             </nav>

@@ -1,77 +1,123 @@
 <?php
-include 'databaseConnection.php';
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Retrieve and validate form data
-    $username = $_POST["username"];
-    $email = $_POST["email"] ;
-    $password = password_hash($_POST["password"], PASSWORD_BCRYPT); // Secure password hashing
-    $userTypeId = $_POST["userTypeId"];
+class DatabaseConnection {
+    private $conn;
 
-    // Retrieve club/organization-specific data
-    $clubAndOrganizationName = $_POST["ClubAndOrganizationName"];
-    $clubAndOrganizationDescription = $_POST["ClubAndOrganizationDescription"];
+    public function __construct() {
+        $this->connect();
+    }
 
-    // Check if the username or email already exists
-    $checkQuery = "SELECT * FROM Users WHERE Username = ? OR Email = ?";
-    $checkStmt = $conn->prepare($checkQuery);
-    $checkStmt->bind_param("ss", $username, $email);
-    $checkStmt->execute();
-    $result = $checkStmt->get_result();
+    private function connect() {
+        include 'databaseConnection.php';
+        $this->conn = $conn; // Assuming $conn is created in databaseConnection.php
+    }
 
-    if ($result->num_rows > 0) {
-        // If user already exists
-        echo "<script>
-                alert('Username or Email already exists. Please use a different one.');
-                window.history.back();
-              </script>";
-    } else {
-        // Insert new user data into Users table
+    public function getConnection() {
+        return $this->conn;
+    }
+
+    public function closeConnection() {
+        $this->conn->close();
+    }
+}
+
+class ClubAndOrganization {
+    private $conn;
+
+    public function __construct($dbConnection) {
+        $this->conn = $dbConnection;
+    }
+
+    public function isClubAndOrganizationExists($username, $email) {
+        $query = "SELECT * FROM Users WHERE Username = ? OR Email = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("ss", $username, $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $exists = $result->num_rows > 0;
+        $stmt->close();
+        return $exists;
+    }
+
+    public function createClubAndOrganization($username, $email, $password, $userTypeId) {
         $query = "INSERT INTO Users (Username, Email, Password, UserTypeId) VALUES (?, ?, ?, ?)";
-        $stmt = $conn->prepare($query);
+        $stmt = $this->conn->prepare($query);
         $stmt->bind_param("sssi", $username, $email, $password, $userTypeId);
+        $success = $stmt->execute();
+        $userId = $stmt->insert_id;
+        $stmt->close();
+        return $success ? $userId : false;
+    }
 
-        if ($stmt->execute()) {
-            // Get the inserted UserId
-            $userId = $stmt->insert_id;
+    public function createClubDetails($userId, $name, $description) {
+        $query = "INSERT INTO Clubsandorganizations (UserId, ClubAndOrganizationName, ClubAndOrganizationDescription) VALUES (?, ?, ?)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("iss", $userId, $name, $description);
+        $success = $stmt->execute();
+        $stmt->close();
+        return $success;
+    }
+}
 
-            // If the user is a club/organization, insert club data into the ClubsAndOrganizations table
-            if ($userTypeId == 2) {
-                $clubQuery = "INSERT INTO Clubsandorganizations (UserId, ClubAndOrganizationName, ClubAndOrganizationDescription) VALUES (?, ?, ?)";
-                $clubStmt = $conn->prepare($clubQuery);
-                $clubStmt->bind_param("iss", $userId, $clubAndOrganizationName, $clubAndOrganizationDescription);
+class ClubAndOrganizationController {
+    private $clubAndOrganization;
 
+    public function __construct($dbConnection) {
+        $this->clubAndOrganization = new ClubAndOrganization($dbConnection);
+    }
 
-                if ($clubStmt->execute()) {
-                    echo "<script>
-                            alert('club created successfully!');
-                            window.location.href = 'indexForAdmin.php';
-                          </script>";
-                } else {
-                    echo "<script>
-                            alert('Error: Could not create club/organization record.');
-                            window.history.back();
-                          </script>";
-                }
-                $clubStmt->close();
-            } else {
-                // Redirect to admin dashboard if not a club/organization
+    public function handleClubAndOrganizationCreation($postData) {
+        $username = $postData["username"];
+        $email = $postData["email"];
+        $password = password_hash($postData["password"], PASSWORD_BCRYPT);
+        $userTypeId = $postData["userTypeId"];
+
+        $clubAndOrganizationName = $postData["ClubAndOrganizationName"] ?? null;
+        $clubAndOrganizationDescription = $postData["ClubAndOrganizationDescription"] ?? null;
+
+        if ($this->clubAndOrganization->isClubAndOrganizationExists($username, $email)) {
+            echo "<script>
+                    alert('Username or Email already exists. Please use a different one.');
+                    window.history.back();
+                  </script>";
+            return;
+        }
+
+        $userId = $this->clubAndOrganization->createClubAndOrganization($username, $email, $password, $userTypeId);
+        if (!$userId) {
+            echo "<script>
+                    alert('Error: Could not create club/organization.');
+                    window.history.back();
+                  </script>";
+            return;
+        }
+
+        if ($userTypeId == 2 && $clubAndOrganizationName && $clubAndOrganizationDescription) {
+            if ($this->clubAndOrganization->createClubDetails($userId, $clubAndOrganizationName, $clubAndOrganizationDescription)) {
                 echo "<script>
-                        alert('club created successfully!');
+                        alert('Club created successfully!');
                         window.location.href = 'indexForAdmin.php';
                       </script>";
+            } else {
+                echo "<script>
+                        alert('Error: Could not create club/organization record.');
+                        window.history.back();
+                      </script>";
             }
-
-            $stmt->close();
         } else {
             echo "<script>
-                    alert('Error: Could not create club.');
-                    window.history.back();
+                    alert('User created successfully!');
+                    window.location.href = 'indexForAdmin.php';
                   </script>";
         }
     }
+}
 
-    $checkStmt->close();
-    $conn->close();
+// Main Script
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $dbConnection = new DatabaseConnection();
+    $controller = new ClubAndOrganizationController($dbConnection->getConnection());
+    $controller->handleClubAndOrganizationCreation($_POST);
+    $dbConnection->closeConnection();
 }
 ?>

@@ -1,77 +1,132 @@
 <?php
-include 'databaseConnection.php';
+class DatabaseConnection {
+    private $conn;
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Retrieve user data
-    $username = $_POST["username"];
-    $email = $_POST["email"];
-    $password = password_hash($_POST["password"], PASSWORD_BCRYPT); // Secure password hashing
-    $userTypeId = $_POST["userTypeId"];
+    public function __construct() {
+        $this->connect();
+    }
 
-    // Retrieve student-specific data
-    $studentName = $_POST["StudentName"];
-    $gender = $_POST["Gender"];
+    private function connect() {
+        include 'databaseConnection.php';
+        $this->conn = $conn; // Assuming $conn is created in databaseConnection.php
+    }
 
-    // Check if the username or email already exists
-    $checkQuery = "SELECT * FROM Users WHERE Username = ? OR Email = ?";
-    $checkStmt = $conn->prepare($checkQuery);
-    $checkStmt->bind_param("ss", $username, $email);
-    $checkStmt->execute();
-    $result = $checkStmt->get_result();
+    public function getConnection() {
+        return $this->conn;
+    }
 
-    if ($result->num_rows > 0) {
-        // If user already exists
-        echo "<script>
-                alert('Username or Email already exists. Please use a different one.');
-                window.history.back(); // Redirects user back to the previous form page
-              </script>";
-    } else {
-        // Insert new user data into Users table
+    public function closeConnection() {
+        $this->conn->close();
+    }
+}
+
+class User {
+    private $conn;
+
+    public function __construct($dbConnection) {
+        $this->conn = $dbConnection;
+    }
+
+    public function isUserExists($username, $email) {
+        $query = "SELECT * FROM Users WHERE Username = ? OR Email = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("ss", $username, $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $exists = $result->num_rows > 0;
+        $stmt->close();
+        return $exists;
+    }
+
+    public function createUser($username, $email, $password, $userTypeId) {
         $query = "INSERT INTO Users (Username, Email, Password, UserTypeId) VALUES (?, ?, ?, ?)";
-        $stmt = $conn->prepare($query);
+        $stmt = $this->conn->prepare($query);
         $stmt->bind_param("sssi", $username, $email, $password, $userTypeId);
+        $success = $stmt->execute();
+        $userId = $stmt->insert_id;
+        $stmt->close();
+        return $success ? $userId : false;
+    }
+}
 
-        if ($stmt->execute()) {
-            // Get the inserted UserId
-            $userId = $stmt->insert_id;
+class Student {
+    private $conn;
 
-            // If the user is a student, insert student data into the Student table
-            if ($userTypeId == 1) {
-                // Insert into the students table
-                $studentQuery = "INSERT INTO students (UserId, StudentName, Gender) VALUES (?, ?, ?)";
-                $studentStmt = $conn->prepare($studentQuery);
-                $studentStmt->bind_param("iss", $userId, $studentName, $gender); // Bind the UserId, StudentName, and Gender
+    public function __construct($dbConnection) {
+        $this->conn = $dbConnection;
+    }
 
-                if ($studentStmt->execute()) {
-                    echo "<script>
-                            alert('User created successfully!');
-                            window.location.href = 'indexForAdmin.php'; // Redirect to admin dashboard
-                          </script>";
-                } else {
-                    echo "<script>
-                            alert('Error: Could not create student record.');
-                            window.history.back(); // Redirects user back to the form page
-                          </script>";
-                }
-                $studentStmt->close();
-            } else {
-                // Redirect to admin dashboard if not a student
-                echo "<script>
-                        alert('User created successfully!');
-                        window.location.href = 'indexForAdmin.php'; // Redirect to admin dashboard
-                      </script>";
-            }
+    public function createStudent($userId, $studentName, $gender) {
+        $query = "INSERT INTO students (UserId, StudentName, Gender) VALUES (?, ?, ?)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("iss", $userId, $studentName, $gender);
+        $success = $stmt->execute();
+        $stmt->close();
+        return $success;
+    }
+}
 
-            $stmt->close();
-        } else {
+class UserController {
+    private $user;
+    private $student;
+
+    public function __construct($dbConnection) {
+        $this->user = new User($dbConnection);
+        $this->student = new Student($dbConnection);
+    }
+
+    public function handleUserCreation($postData) {
+        $username = $postData["username"];
+        $email = $postData["email"];
+        $password = password_hash($postData["password"], PASSWORD_BCRYPT);
+        $userTypeId = $postData["userTypeId"];
+        
+        $studentName = $postData["StudentName"] ?? null;
+        $gender = $postData["Gender"] ?? null;
+
+        if ($this->user->isUserExists($username, $email)) {
+            echo "<script>
+                    alert('Username or Email already exists. Please use a different one.');
+                    window.history.back();
+                  </script>";
+            return;
+        }
+
+        $userId = $this->user->createUser($username, $email, $password, $userTypeId);
+        if (!$userId) {
             echo "<script>
                     alert('Error: Could not create user.');
-                    window.history.back(); // Redirects user back to the form page
+                    window.history.back();
+                  </script>";
+            return;
+        }
+
+        if ($userTypeId == 1 && $studentName && $gender) {
+            if ($this->student->createStudent($userId, $studentName, $gender)) {
+                echo "<script>
+                        alert('User created successfully!');
+                        window.location.href = 'indexForAdmin.php';
+                      </script>";
+            } else {
+                echo "<script>
+                        alert('Error: Could not create student record.');
+                        window.history.back();
+                      </script>";
+            }
+        } else {
+            echo "<script>
+                    alert('User created successfully!');
+                    window.location.href = 'indexForAdmin.php';
                   </script>";
         }
     }
+}
 
-    $checkStmt->close();
-    $conn->close();
+// Main Script
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $dbConnection = new DatabaseConnection();
+    $controller = new UserController($dbConnection->getConnection());
+    $controller->handleUserCreation($_POST);
+    $dbConnection->closeConnection();
 }
 ?>
