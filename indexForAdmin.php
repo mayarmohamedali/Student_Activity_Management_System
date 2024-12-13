@@ -39,9 +39,9 @@
             
             <div class="col-lg-4 col-12 mb-4">
     <div class="custom-block bg-white shadow-lg">
-        <h5 class="mb-2">Add users</h5>
-        <p class="mb-0">add students , clubs & organizations</p>
-        <a href="studentorclub.php" class="btn custom-btn mt-2">Add users</a>
+        <h5 class="mb-2">Add user</h5>
+        <p class="mb-0">add student , club & organization</p>
+        <a href="studentorclub.php" class="btn custom-btn mt-2">Add user</a>
 
  <!-- Updated link -->
     </div>
