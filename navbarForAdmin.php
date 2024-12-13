@@ -38,7 +38,6 @@
         
             background-color: #80d0c7;
                background-image: linear-gradient(15deg, #80d0c7 0%,  #13547a 100%);
-  
         }
     </style>
         <nav class="navbar navbar-expand-lg">
@@ -60,33 +59,33 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-lg-5 me-lg-auto">
                         <li class="nav-item">
-                            <a class="nav-link click-scroll" href="indexForClubsAndOrganizations.php #section_1">Add
-                                Users</a>
+                            <a class="nav-link click-scroll" href="studentorclub.php">Add
+                                User</a>
                         </li>
 
                         <li class="nav-item">
                             <a class="nav-link click-scroll"
-                                href="indexForClubsAndOrganizations.php#section_2">Activity</a>
+                                href="#">Activity</a>
                         </li>
 
                         <li class="nav-item">
                             <a class="nav-link click-scroll"
-                                href="indexForClubsAndOrganizations.php#section_3">Reports</a>
+                                href="#">Reports</a>
                         </li>
 
                         <li class="nav-item">
                             <a class="nav-link click-scroll"
-                                href="indexForClubsAndOrganizations.php#section_5">Dashboard</a>
+                                href="#">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link click-scroll" href="#section_6">About</a>
+                            <a class="nav-link click-scroll" href="#">About</a>
                         </li>
                     </ul>
 
                     <div class="d-none d-lg-block">
-                        <a href="signup.php" class="navbar-icon bi-person smoothscroll"></a>
+                        <a href="#" class="navbar-icon bi-person smoothscroll"></a>
                     </div>
-                    <!-- Logout Icon -->
+                  
                     <a href="logout.php" class="navbar-icon">
                         <i class="fa-solid fa-right-from-bracket"></i>
                     </a>

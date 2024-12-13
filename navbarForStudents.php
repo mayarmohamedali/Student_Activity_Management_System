@@ -70,7 +70,7 @@
 
                         <div class="d-none d-lg-block">
     <!-- Signup Icon -->
-    <a href="signup.php" class="navbar-icon bi-person smoothscroll"></a>
+    <a href="" class="navbar-icon bi-person smoothscroll"></a>
 
     <!-- Logout Icon -->
     <a href="logout.php" class="navbar-icon">

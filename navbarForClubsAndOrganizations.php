@@ -69,7 +69,7 @@
                         </ul>
 
                         <div class="d-none d-lg-block">
-                            <a href="signup.php" class="navbar-icon bi-person smoothscroll"></a>
+                            <a href="" class="navbar-icon bi-person smoothscroll"></a>
                         </div>
                         <!-- Logout Icon -->
     <a href="logout.php" class="navbar-icon">

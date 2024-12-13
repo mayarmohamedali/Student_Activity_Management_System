@@ -64,7 +64,7 @@
         <select id="Gender" name="Gender" required>
             <option value="1">Male</option>
             <option value="2">Female</option>
-
+            </select>
             <br>
             <br>
         <label for="username">Username:</label>
@@ -75,11 +75,6 @@
 
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
-
-        
-
-         
-        </select>
         <label for="userType">User Type:</label>
         <select id="userType" name="userTypeId" required>
             <option value="1">Student</option>
@@ -91,6 +86,12 @@
 </body>
 <style>
         /* General form styling */
+        select {
+            border-radius: 5px;
+            padding: 2px;
+            border: none;
+            border-radius: 5px;
+}
         form {
             max-width: 400px;
             margin: 50px auto;
@@ -99,10 +100,12 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             font-family: Arial, sans-serif;
+            border-radius: 5px;
         }
 
         /* Form elements layout */
         label, input, button {
+            border-radius: 5px;
             display: block;
             width: 100%;
             margin-bottom: 15px;
