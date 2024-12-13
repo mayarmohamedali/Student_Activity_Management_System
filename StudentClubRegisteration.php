@@ -56,106 +56,60 @@
             </div>
         </div>
     </header>
+    <?php
+include 'databaseConnection.php'; // Ensure this connects to your database
 
-    <section class="topics-detail-section section-padding" id="topics-detail">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-12 m-auto">
-                    <h3 class="mb-4">Introduction to our clubs </h3>
-                    <p>Welcome to MIU Clubs! Our vibrant campus community offers a wide variety of student-run clubs and organizations that cater to diverse interests and passions. Whether you're into sports, technology, arts, culture, or social causes, there’s something for everyone.</p>
-                    <p><strong>Joining a club is a great way to meet new people, develop leadership skills, and enhance your university experience.</strong></p>
-                    <blockquote>Explore the many opportunities we offer and become part of a community that shares your enthusiasm!</blockquote>
+// Fetch approved events
+$query = "SELECT * FROM events WHERE is_approved = 'approved'";
+$result = $conn->query($query);
 
-                    <section class="section-padding">
-                        <div class="container">
-                            <div class="row justify-content-center">
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        echo '<div class="club-container p-3" style="border: 1px solid #ddd; border-radius: 8px; background-color: #f7f7f7;">';
+        echo '<img src="' . htmlspecialchars($row['EventImage']) . '" class="img-fluid mb-3" style="max-width: 100%; height: auto;" alt="Event Image">';
+        echo '<h4>' . htmlspecialchars($row['EventName']) . '</h4>';
+        echo '<p>' . htmlspecialchars($row['EventDescription']) . '</p>';
 
-                                <!-- Club 1 -->
-                                <div class="col-lg-8 col-md-10 col-sm-12">
-                                    <div class="club-container p-3" style="border: 1px solid #ddd; border-radius: 8px; background-color: #f7f7f7;">
-                                        <img src="images/ACPC.jpeg" class="img-fluid mb-3" style="max-width: 100%; height: auto;" alt="Club 1 Image">
-                                        <h4> ACPC</h4>
-                                        <p>Welcome to ACPC! Join us for exciting activities and events.</p>
+        // Registration form for each event
+        echo '<form class="custom-form" action="submitRegistration.php" method="post">';
+        echo '<input type="hidden" name="event_id" value="' . htmlspecialchars($row['EventId']) . '">';
+        echo '<div class="form-group">';
+        echo '<label for="name">Full Name</label>';
+        echo '<input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>';
+        echo '</div>';
+        echo '<div class="form-group">';
+        echo '<label for="email">Email</label>';
+        echo '<input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>';
+        echo '</div>';
+        echo '<div class="form-group">';
+        echo '<label for="slot">Preferred Slot</label>';
+        echo '<select class="form-control" id="slot" name="slot" required>';
+        echo '<option value="morning">Morning</option>';
+        echo '<option value="afternoon">Afternoon</option>';
+        echo '<option value="evening">Evening</option>';
+        echo '</select>';
+        echo '</div>';
+        echo '<div class="form-group">';
+        echo '<label>Role</label>';
+        echo '<div>';
+        echo '<input type="radio" id="visitor" name="role" value="visitor" required>';
+        echo '<label for="visitor">Visitor</label>';
+        echo '<input type="radio" id="ushering" name="role" value="ushering" required>';
+        echo '<label for="ushering">Ushering</label>';
+        echo '</div>';
+        echo '</div>';
+        echo '<button type="submit" class="form-control">Register</button>';
+        echo '</form>';
+        echo '</div>';
+    }
+} else {
+    echo '<p>No approved events available for registration.</p>';
+}
 
-                                        <form class="custom-form" action="rating.php" method="post">
-                                            <div class="form-group">
-                                                <label for="name1">Full Name</label>
-                                                <input type="text" class="form-control" id="name1" name="name1" placeholder="Enter your name" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="email1">Email</label>
-                                                <input type="email" class="form-control" id="email1" name="email1" placeholder="Enter your email" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="slot1">Preferred Slot</label>
-                                                <select class="form-control" id="slot1" name="slot1" required>
-                                                    <option value="morning">Morning</option>
-                                                    <option value="afternoon">Afternoon</option>
-                                                    <option value="evening">Evening</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Role</label>
-                                                <div>
-                                                    <input type="radio" id="visitor1" name="role1" value="visitor" required>
-                                                    <label for="visitor1">Visitor</label>
-                                                    <input type="radio" id="ushering1" name="role1" value="ushering" required>
-                                                    <label for="ushering1">Ushering</label>
-                                                </div>
-                                            </div>
-                                            <button type="submit" class="form-control">Register</button>
-                                        </form>
-                                    </div>
-                                </div>
+$conn->close();
+?>
 
-                                <!-- Space between clubs -->
-                                <div class="w-100 my-4"></div>
-
-                                <!-- Club 2 -->
-                                <div class="col-lg-8 col-md-10 col-sm-12">
-                                    <div class="club-container p-3" style="border: 1px solid #ddd; border-radius: 8px; background-color: #f7f7f7;">
-                                        <img src="images/MUN.jpeg" class="img-fluid mb-3" style="max-width: 100%; height: auto;" alt="Club 2 Image">
-                                        <h4>MUN</h4>
-                                        <p>Be part of MUN and enjoy various events and activities.</p>
-
-                                        <form class="custom-form" action="rating.php" method="post">
-                                            <div class="form-group">
-                                                <label for="name2">Full Name</label>
-                                                <input type="text" class="form-control" id="name2" name="name2" placeholder="Enter your name" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="email2">Email</label>
-                                                <input type="email" class="form-control" id="email2" name="email2" placeholder="Enter your email" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="slot2">Preferred Slot</label>
-                                                <select class="form-control" id="slot2" name="slot2" required>
-                                                    <option value="morning">Morning</option>
-                                                    <option value="afternoon">Afternoon</option>
-                                                    <option value="evening">Evening</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Role</label>
-                                                <div>
-                                                    <input type="radio" id="visitor2" name="role2" value="visitor" required>
-                                                    <label for="visitor2">Visitor</label>
-                                                    <input type="radio" id="ushering2" name="role2" value="ushering" required>
-                                                    <label for="ushering2">Ushering</label>
-                                                </div>
-                                            </div>
-                                            <button type="submit" class="form-control">Register</button>
-                                        </form>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </section>
-                </div>
-            </div>
-        </div>
-    </section>
+                              
 </main>
 
     <!-- JAVASCRIPT FILES -->

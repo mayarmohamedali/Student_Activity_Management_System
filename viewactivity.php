@@ -30,8 +30,9 @@ if ($result->num_rows > 0) {
         // Display Event Location
         echo '<p><strong>Location:</strong> ' . htmlspecialchars($row['EventLocation']) . '</p>';
 
-        // Display Accept/Reject buttons
+        // Display Accept/Reject buttons with hidden event ID
         echo '<form action="" method="POST">';
+        echo '<input type="hidden" name="event_id" value="' . htmlspecialchars($row['EventId']) . '">';
         echo '<button type="submit" name="action" value="accept" class="btn btn-success">Accept</button>';
         echo '<button type="submit" name="action" value="reject" class="btn btn-danger">Reject</button>';
         echo '</form>';
@@ -46,34 +47,50 @@ if ($result->num_rows > 0) {
 // Handle Accept/Reject action
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $action = $_POST['action']; // Either "accept" or "reject"
+    $event_id = $_POST['event_id']; // Get the event ID from the hidden input
 
     // Validate action
     if ($action !== 'accept' && $action !== 'reject') {
         die("Invalid action.");
     }
 
-    // Determine the new approval status
-    $newStatus = ($action === 'accept') ? 'approved' : 'rejected';
+    if ($action === 'accept') {
+        // Approve the event
+        $query = "UPDATE events SET is_approved = 'approved' WHERE EventId = ?";
+        $stmt = $conn->prepare($query);
 
-    // Update the event status
-    $query = "UPDATE events SET is_approved = ? WHERE EventID = ?";
-    $stmt = $conn->prepare($query);
+        if ($stmt === false) {
+            die("Error preparing query: " . $conn->error);
+        }
 
-    if ($stmt === false) {
-        die("Error preparing query: " . $conn->error);
+        // Bind parameters and execute
+        $stmt->bind_param("i", $event_id);
+        if ($stmt->execute()) {
+            echo "<p>Event approved successfully! It will now appear on the StudentClubRegisteration.php page.</p>";
+        } else {
+            echo "<p>Error: " . $stmt->error . "</p>";
+        }
+
+        $stmt->close(); // Close the prepared statement
+    } elseif ($action === 'reject') {
+        // Delete the event
+        $query = "DELETE FROM events WHERE EventId = ?";
+        $stmt = $conn->prepare($query);
+
+        if ($stmt === false) {
+            die("Error preparing query: " . $conn->error);
+        }
+
+        // Bind parameters and execute
+        $stmt->bind_param("i", $event_id);
+        if ($stmt->execute()) {
+            echo "<p>Event rejected and deleted successfully!</p>";
+        } else {
+            echo "<p>Error: " . $stmt->error . "</p>";
+        }
+
+        $stmt->close(); // Close the prepared statement
     }
-
-    // Bind parameters
-    $stmt->bind_param("si", $newStatus, $event_id);
-
-    // Execute the query
-    if ($stmt->execute()) {
-        echo "Event " . ($newStatus === 'approved' ? "accepted" : "rejected") . " successfully!";
-    } else {
-        echo "Error: " . $stmt->error;
-    }
-
-    $stmt->close(); // Close the prepared statement
 }
 
 $conn->close(); // Close the database connection
