@@ -13,6 +13,10 @@
         <?php include 'style.php'; ?> 
 
     </head>
+    <?php
+session_start();
+?>
+
     
     <body id="top">
 
@@ -54,21 +58,30 @@
                             <li class="nav-item">
                                 <a class="nav-link click-scroll" href="#section_6">About</a>
                             </li>
+                            
                         </ul>
 
                         <div class="d-none d-lg-block">
     <!-- Signup Icon -->
-    <a href="" class="navbar-icon bi-person smoothscroll"></a>
 
-    <!-- Logout Icon -->
-    <a href="logout.php" class="navbar-icon">
-        <i class="fa-solid fa-right-from-bracket"></i>
-    </a>
+<div class="d-none d-lg-block">
+    <?php if (isset($_SESSION['username']) && !empty($_SESSION['username'])): ?>
+        <!-- Show user profile button and logout button if the user is logged in -->
+        <a href="userprofile.php?username=<?php echo htmlspecialchars($_SESSION['username']); ?>" id="load-profile-btn">
+            <?php echo htmlspecialchars($_SESSION['username']); ?>
+        </a>
+        <a href="logout.php" class="btn btn-danger" id="logout-btn">
+            Logout
+        </a>
+    <?php else: ?>
+        <!-- Show login button if the user is not logged in -->
+        <a href="login.php" class="btn btn-primary" id="login-btn">
+            Login
+        </a>
+    <?php endif; ?>
 </div>
-                        
-                   
-                        
-                        
+
+</div>                        
                     </div>
                 </div>
             </nav>

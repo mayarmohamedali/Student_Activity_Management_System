@@ -6,6 +6,6 @@ session_unset();
 session_destroy();
 
 // Redirect to the login page or homepage
-header("Location: Login.php"); // Change 'login.php' to your desired destination
+header("Location: indexForStudents.php"); // Change 'login.php' to your desired destination
 exit();
 ?>
