@@ -8,162 +8,140 @@
     <title>View Activity - Admin Dashboard</title>
     <style>
         /* Global Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box; 
+            font-family: 'Arial', sans-serif;
+        }
 
-body {
-    background-color: #f4f7fc;
-    color: #333;
-    font-size: 16px;
-}
+        body {
+            background-color: #white;
+            color: #333;
+            font-size: 16px;
+        }
 
-a {
-    text-decoration: none;
-    color: inherit;
-}
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
 
-/* Profile Container */
-.profile-container {
-    max-width: 1200px;
-    margin: 20px auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
+        /* Profile Container */
+        .profile-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #80d0c7;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
 
-.profile-header {
-    font-size: 28px;
-    font-weight: bold;
-    color: #2d3e50;
-    margin-bottom: 15px;
-    text-align: center;
-}
+        .profile-header {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2d3e50;
+            margin-bottom: 15px;
+            text-align: center;
+        }
 
-.profile-info {
-    margin: 10px 0;
-    font-size: 18px;
-}
+        .profile-info {
+            margin: 10px 0;
+            font-size: 18px;
+        }
 
-.profile-info label {
-    font-weight: bold;
-}
+        .profile-info label {
+            font-weight: bold;
+        }
 
-.profile-info span {
-    font-style: italic;
-    color: #555;
-}
+        .profile-info span {
+            font-style: italic;
+            color: #555;
+        }
 
-.profile-buttons {
-    text-align: center;
-    margin-top: 20px;
-}
+        .profile-buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
 
-.logout-btn {
-    background-color: #ff6b6b;
-    color: #fff;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+        .logout-btn {
+            background-color: #ff6b6b;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
-.logout-btn:hover {
-    background-color: #ff4757;
-}
+        .logout-btn:hover {
+            background-color: #ff4757;
+        }
 
-/* Events Section */
-.events-section {
-    margin-top: 30px;
-}
+        /* Events Section */
+        .events-section {
+            margin-top: 30px;
+        }
 
-.events-section h2 {
-    font-size: 24px;
-    font-weight: bold;
-    color: #2d3e50;
-    margin-bottom: 20px;
-}
+        .events-section h2 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2d3e50;
+            margin-bottom: 20px;
+        }
 
-.events-list {
-    list-style: none;
-    padding-left: 0;
-}
+        .events-list {
+            list-style: none;
+            padding-left: 0;
+        }
 
-.event-item {
-    display: flex;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 15px;
-    transition: transform 0.2s ease;
-}
+        .event-item {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 15px;
+            transition: transform 0.2s ease;
+        }
 
-.event-item:hover {
-    transform: translateX(10px);
-}
+        .event-item:hover {
+            transform: translateX(10px);
+        }
 
-.event-image {
-    width: 150px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 5px;
-    margin-right: 20px;
-}
+        .event-details {
+            flex: 1;
+        }
 
-.event-details {
-    flex: 1;
-}
+        .event-details h3 {
+            font-size: 22px;
+            color: #2d3e50;
+            margin-bottom: 10px;
+        }
 
-.event-details h3 {
-    font-size: 22px;
-    color: #2d3e50;
-    margin-bottom: 10px;
-}
+        .event-details p {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
 
-.event-details p {
-    font-size: 16px;
-    margin-bottom: 8px;
-}
+        .event-details strong {
+            color: #007bff;
+        }
 
-.event-details strong {
-    color: #007bff;
-}
-
-/* Calendar Section */
-.calendar-section {
-    margin-top: 50px;
-    text-align: center;
-}
-
-#calendar {
-    max-width: 900px;
-    margin: 0 auto;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Error Message */
-.error-message {
-    color: #ff6b6b;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 20px;
-}
-
+        /* Error Message */
+        .error-message {
+            color: #ff6b6b;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
 
-    <!-- CSS FILES -->        
-    <?php include 'style.php'; ?> <!-- Include global styles -->
-    <link href="css/login.css" rel="stylesheet"> <!-- Include specific CSS for this page -->
-    
     <!-- FullCalendar CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.2.0/fullcalendar.min.css" rel="stylesheet">
+    
+    <!-- jQuery and FullCalendar JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.2.0/fullcalendar.min.js"></script>
 </head>
 <body>
     <?php
@@ -203,7 +181,7 @@ a {
 
         // Fetch registered events for this user
         $registeredEvents = [];
-        $eventQuery = "SELECT e.EventName, e.EventDescription, e.EventImage, e.EventTimeSlot, e.EventDate, e.EventLocation, e.ClubName, r.Slot, r.Role 
+        $eventQuery = "SELECT e.EventId, e.EventName, e.EventDescription, e.EventImage, e.EventTimeSlot, e.EventDate, e.EventLocation, e.ClubName, r.Slot, r.Role 
                        FROM events e
                        INNER JOIN registrations r ON e.EventId = r.EventId
                        WHERE r.UserId = ? 
@@ -213,10 +191,11 @@ a {
             $stmt->bind_param("i", $fetchedId); // Bind userId
             $stmt->execute();
             $stmt->store_result();
-            $stmt->bind_result($eventName, $eventDescription, $eventImage, $eventTimeSlot, $eventDate, $eventLocation, $clubName, $slot, $role);
+            $stmt->bind_result($eventId, $eventName, $eventDescription, $eventImage, $eventTimeSlot, $eventDate, $eventLocation, $clubName, $slot, $role);
 
             while ($stmt->fetch()) {
                 $registeredEvents[] = [
+                    'id' => $eventId,
                     'name' => $eventName,
                     'description' => $eventDescription,
                     'image' => $eventImage,
@@ -252,6 +231,9 @@ a {
             </div>
             <div class="profile-buttons">
                 <button onclick="location.href='logout.php'" class="logout-btn">Logout</button>
+            </div>
+            <div class="profile-buttons">
+                <button onclick="location.href='indexForStudents.php'" class="logout-btn">Back</button>
             </div>
 
             <!-- Registered Events Section -->
@@ -290,24 +272,31 @@ a {
         <?php endif; ?>
     </div>
 
-    <!-- Include necessary JS libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.2.0/fullcalendar.min.js"></script>
-
     <script>
         $(document).ready(function() {
             var events = <?php echo json_encode($registeredEvents); ?>;
+            
             var calendarEvents = events.map(function(event) {
                 return {
                     title: event.name,
-                    start: event.date + "T" + event.time, 
+                    start: event.date + "T" + event.time, // Ensure the time is in the correct format
                     description: event.location,
-                    url: 'event_details.php?event_id=' + event.id
+                    url: 'event_details.php?event_id=' + event.id,
+                    allDay: true // Optional: Use if you want the event to span the entire day
                 };
             });
 
             $('#calendar').fullCalendar({
-                events: calendarEvents
+                events: calendarEvents,
+                eventRender: function(event, element) {
+                    element.attr('title', event.description); // Optional: Add description to event's tooltip
+                },
+                eventColor: '#ff6b6b', // Optional: Add a color to highlight the events
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                }
             });
         });
     </script>
