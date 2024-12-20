@@ -6,12 +6,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-  <?php include 'style.php'; ?>       
+    <?php include 'style.php'; ?>       
 </head>
 
 <body id="top">
 <main>
-   <?php include"navbarForAdmin.php";?>
+   <?php include "navbarForAdmin.php";?>
 
     <section class="hero-section">
         <div class="container">
@@ -20,12 +20,48 @@
             <form action="process_report.php" method="POST">
                 <div class="mb-3">
                     <label for="event" class="form-label">Event Name</label>
-                    <input type="text" class="form-control" id="event" name="event" required>
+                    <select class="form-control" id="event" name="event" required>
+                        <option value="">Select Event</option>
+                        <?php
+                        // Database connection
+                        $servername = "localhost";
+                        $username = "root";
+                        $password = "";
+                        $dbname = "uniconnect";
+
+                        // Create connection
+                        $conn = new mysqli($servername, $username, $password, $dbname);
+
+                        // Check connection
+                        if ($conn->connect_error) {
+                            die("Connection failed: " . $conn->connect_error);
+                        }
+
+                        // Query to get all events
+                        $sql = "SELECT EventID, EventName FROM events";
+                        $result = $conn->query($sql);
+
+                        // Check if the query was successful
+                        if ($result->num_rows > 0) {
+                            // Output data of each row
+                            while ($event = $result->fetch_assoc()) {
+                                echo '<option value="' . $event['EventID'] . '">' . htmlspecialchars($event['EventName']) . '</option>';
+                            }
+                        } else {
+                            echo '<option value="">No events available</option>';
+                        }
+
+                        // Close connection
+                        $conn->close();
+                        ?>
+                    </select>
                 </div>
+
                 <div class="mb-3">
                     <label for="opinion" class="form-label">Your Opinion</label>
                     <textarea class="form-control" id="opinion" name="opinion" rows="4" required></textarea>
                 </div>
+
                 <button type="submit" class="btn btn-primary">Submit Opinion</button>
             </form>
         </div>
