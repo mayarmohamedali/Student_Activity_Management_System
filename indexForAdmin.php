@@ -50,13 +50,12 @@
               
                 </div>
 
+                
                 <div class="col-lg-4 col-12 mb-4">
     <div class="custom-block bg-white shadow-lg">
         <h5 class="mb-2">Reports</h5>
         <p class="mb-0">Generate and view reports.</p>
-        <a href="viewreport.php" class="btn custom-btn mt-2">View Reports</a>
-
- <!-- Updated link -->
+        <a href="viewreport.php" class="btn custom-btn mt-2">View Reports</a> <!-- Updated link -->
     </div>
 </div>
 
