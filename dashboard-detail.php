@@ -47,29 +47,46 @@
                         <h5 class="mt-2">Events</h5>
                         <div class="row">
                             <?php
-                            // Sample array of events
-                            $events = [
-                                [
-                                    'title' => 'Event 1',
-                                    'description' => 'Description for event 1.',
-                                    'image' => 'images/event1.jpg' // Update the image path
-                                ],
-                                [
-                                    'title' => 'Event 2',
-                                    'description' => 'Description for event 2.',
-                                    'image' => 'images/event2.jpg' // Update the image path
-                                ],
-                                // Add more events as needed
-                            ];
+                            // Database connection
+                            $servername = "localhost";
+                            $username = "root";
+                            $password = "";
+                            $dbname = "uniconnect";
 
-                            foreach ($events as $event) {
-                                echo '<div class="col-6 mb-2">
-                                        <div class="event-card">
-                                            <img src="'.$event['image'].'" class="img-fluid" alt="'.$event['title'].'">
-                                            <h6>'.$event['title'].'</h6>
-                                            <p>'.$event['description'].'</p>
-                                        </div>
-                                    </div>';
+                            // Create connection
+                            $conn = new mysqli($servername, $username, $password, $dbname);
+
+                            // Check connection
+                            if ($conn->connect_error) {
+                                die("Connection failed: " . $conn->connect_error);
+                            }
+
+                            // Query to fetch approved events
+                            $sql = "SELECT EventName, EventDescription, EventImage, EventDate, EventTimeSlot, EventLocation 
+                                    FROM events 
+                                    WHERE is_approved = 'approved'";
+                            $result = $conn->query($sql);
+
+                            // Check if the query was successful
+                            if ($result === false) {
+                                die("Error in query: " . $conn->error);
+                            }
+
+                            if ($result->num_rows > 0) {
+                                while ($event = $result->fetch_assoc()) {
+                                    echo '<div class="col-6 mb-2">
+                                            <div class="event-card">
+                                                <img src="'.htmlspecialchars($event['EventImage']).'" class="img-fluid" alt="'.htmlspecialchars($event['EventName']).'">
+                                                <h6>'.htmlspecialchars($event['EventName']).'</h6>
+                                                <p>'.htmlspecialchars($event['EventDescription']).'</p>
+                                                <p><strong>Date:</strong> '.htmlspecialchars($event['EventDate']).'</p>
+                                                <p><strong>Time:</strong> '.htmlspecialchars($event['EventTimeSlot']).'</p>
+                                                <p><strong>Location:</strong> '.htmlspecialchars($event['EventLocation']).'</p>
+                                            </div>
+                                          </div>';
+                                }
+                            } else {
+                                echo '<p class="col-12">No approved events found.</p>';
                             }
                             ?>
                         </div>
@@ -81,33 +98,36 @@
                     <div class="custom-block bg-white shadow-lg">
                         <h5 class="mt-2">Clubs</h5>
                         <div class="row">
-                            <?php
-                            // Sample array of clubs
-                            $clubs = [
-                                [
-                                    'name' => 'Club 1',
-                                    'description' => 'Description for club 1.',
-                                    'image' => 'images/club1.jpg' // Update the image path
-                                ],
-                                [
-                                    'name' => 'Club 2',
-                                    'description' => 'Description for club 2.',
-                                    'image' => 'images/club2.jpg' // Update the image path
-                                ],
-                                // Add more clubs as needed
-                            ];
+    <?php
+    // Query for clubs and their associated event names
+    $sql = "SELECT c.ClubAndOrganizationName AS club_name, e.EventName 
+            FROM clubsandorganizations c
+            LEFT JOIN events e ON c.EventID = e.EventID";
+    $result = $conn->query($sql);
 
-                            foreach ($clubs as $club) {
-                                echo '<div class="col-6 mb-2">
-                                        <div class="club-card">
-                                            <img src="'.$club['image'].'" class="img-fluid" alt="'.$club['name'].'">
-                                            <h6>'.$club['name'].'</h6>
-                                            <p>'.$club['description'].'</p>
-                                        </div>
-                                    </div>';
-                            }
-                            ?>
-                        </div>
+    // Check if the query was successful
+    if ($result === false) {
+        die("Error in query: " . $conn->error);
+    }
+
+    if ($result->num_rows > 0) {
+        while ($club = $result->fetch_assoc()) {
+            echo '<div class="col-6 mb-2">
+                    <div class="club-card">
+                        <h6>'.htmlspecialchars($club['club_name']).'</h6>
+                        <p><strong>Event:</strong> '.($club['EventName'] ? htmlspecialchars($club['EventName']) : 'No event assigned').'</p>
+                    </div>
+                  </div>';
+        }
+    } else {
+        echo '<p class="col-12">No clubs found.</p>';
+    }
+
+    // Close the connection
+    $conn->close();
+    ?>
+</div>
+
                     </div>
                 </div>
             </div>
