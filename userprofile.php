@@ -15,11 +15,11 @@
             font-family: 'Arial', sans-serif;
         }
 
-        body {
+        /* body {
             background-color: #white;
             color: #333;
             font-size: 16px;
-        }
+        } */
 
         a {
             text-decoration: none;
@@ -230,7 +230,7 @@
                 <span><?php echo htmlspecialchars($userData['id']); ?></span>
             </div>
             <div class="profile-buttons">
-                <button onclick="location.href='logout.php'" class="logout-btn">Logout</button>
+                <button onclick="location.href='LandingPage.php'" class="logout-btn">Logout</button>
             </div>
             <div class="profile-buttons">
                 <button onclick="location.href='indexForStudents.php'" class="logout-btn">Back</button>
